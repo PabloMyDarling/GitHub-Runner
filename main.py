@@ -37,7 +37,7 @@ except FileExistsError:
     else: files_dirname = "files"
 files = []
 for file_url in file_urls:
-    with open( path.join(path.dirname(__file__), "files", urlparse(file_url).path.split("/")[-1]), "wb" ) as file:
+    with open( path.join(path.dirname(__file__), files_dirname, urlparse(file_url).path.split("/")[-1]), "wb" ) as file:
         file.write( get(file_url).content )
         files.append(file.name)
 
