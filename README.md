@@ -12,16 +12,5 @@ Of course, you need to replace the curly brackets according to what's written in
 ```
 python3 ghr.py python3 PabloMyDarling/Reaction-Speed-Test/main main.py
 ```
-A simple breakdown of this command:  
-  - **python3 ghr.py:** runs the script with [Python3](https://www.python.org). (yes, you need Python for this to work)
-  - **python3:** the language to run the repository with
-  - **PabloMyDarling/Reaction-Speed-Test/main:**
-    - **PabloMyDarling:** the repository owner
-    - **Reaction-Speed-Test:** the repository name
-    - **main:** the repository branch to run
-  - **main.py:** the file to run from the repository  
 
-**Reminder:** This is a summary of the documentation. Please go to the Wiki in this GitHub page.
-
-## How to install
-If you'd like to use this tool for yourself, install according to the Introduction page in the Wiki.
+***Learn more about this tool in the documentation!***
