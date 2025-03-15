@@ -4,6 +4,9 @@ from colorama import Fore, Style
 from os import mkdir, listdir, chdir, remove, path, makedirs, rmdir
 from urllib.parse import urlparse, unquote
 from runpy import run_path
+from socketserver import TCPServer
+from http.server import SimpleHTTPRequestHandler
+from webbrowser import open_new_tab
 
 # file functions
 def rm(Path: str):
@@ -23,7 +26,7 @@ def get_files(username: str, reponame: str, put_path: str = "", branch: str = "m
         response.raise_for_status()
         contents = response.json()
     except RequestException as e:
-        print(f"{Fore.RED}Error fetching repository contents: {e}{Fore.RESET}")
+        print(f"{Fore.RED}ERROR:{Fore.RESET} {e}")
         return
     
     for item in contents:
@@ -56,12 +59,23 @@ files_dirname = ""
 
 try:
     try:
-        repo = argv[1].split("/", 3)
-        main_file = argv[2]
+        lang = argv[1]
+        repo = argv[2].split("/", 3)
+        if lang != "html-css-js": main_file = argv[3]
     except IndexError:
        print(f"{Style.BRIGHT}{Fore.RED}ERROR:{Fore.RESET}{Style.RESET_ALL} not enough arguments")
        exit() 
 
+    #valid lang check
+    if lang != "python3" or lang != "html-css-js":
+        print(f"{Style.BRIGHT}{Fore.RED}ERROR:{Fore.RESET}{Style.RESET_ALL} no such language OR unsupported language\n  {Fore.GREEN}try:{Fore.RESET} check spelling")
+        exit()
+
+    if lang == "html-css-js":
+        try:
+            argv[3]
+            print(f"{Fore.YELLOW}{Style.BRIGHT}WARN:{Fore.RESET}{Style.BRIGHT} main file not required for html-css-js")
+        except IndexError: pass
     response = get(f"https://api.github.com/repos/{repo[0]}/{repo[1]}/contents?ref={repo[2]}")
 
     if not response.status_code == 200:
@@ -84,15 +98,20 @@ try:
 
     get_files(repo[0], repo[1], branch=repo[2])
     print("\033c")
-    print(f"{Fore.GREEN}Receiving successful! The following output will be accoring to your code.{Fore.RESET}")
+    if lang != "html-css-js": print(f"{Fore.GREEN}Receiving successful! The following output will be accoring to your code.{Fore.RESET}")
+    else: print(f"{Fore.GREEN}Receiving successful! You can press <Ctrl-C> to abort the process.{Fore.RESET}")
     print(f"{Fore.BLUE}-------------------------------------------------------------------------------{Fore.RESET}")
 
     chdir( path.join(path.dirname(__file__), files_dirname) )
-    run_path(main_file)
+    if lang == "python3": run_path(main_file)
+    elif lang == "html-css-js":
+        with TCPServer(("", 0), SimpleHTTPRequestHandler) as httpd:
+            open_new_tab(f"http://localhost:{httpd.server_address[1]}")
+            httpd.serve_forever()
     chdir( path.dirname(__file__) )
     rm( path.join(path.dirname(__file__), files_dirname) )
 except KeyboardInterrupt:
-    print(f"{Fore.RED}{Style.BRIGHT}Aborted.{Fore.RESET}{Style.NORMAL}")
+    print(f"\033c{Fore.RED}{Style.BRIGHT}Aborted.{Fore.RESET}{Style.NORMAL}")
     rm( path.join(path.dirname(__file__), files_dirname) )
 except Exception as e:
     print(f"{Fore.RED}{Style.BRIGHT}ERROR: {Fore.RESET}{Style.NORMAL}{e}")
