@@ -2,7 +2,7 @@
 This is a tool to run [Python3](https://www.python.org) and HTML-CSS-JS projects directly from GitHub.
 
 ## How it works
-This is a CLI (Command Prompt Interface) tool, which means it should be run from your preferred terminal, whether it be kitty, Alacritty, Windows Terminal, etc.  
+This is a CLI (Command Line Interface) tool, which means it should be run from your preferred terminal, whether it be kitty, Alacritty, Windows Terminal, etc.  
 
 To actually run this tool, you need to use the following command:  
 ```
@@ -13,4 +13,4 @@ Of course, you need to replace the curly brackets according to what's written in
 python3 ghr.py python3 PabloMyDarling/Reaction-Speed-Test/main main.py
 ```
 
-***Learn more about this tool in the documentation!***
+***Learn more about this tool in the [documentation](https://github.com/PabloMyDarling/GitHub-Runner/wiki)!***
