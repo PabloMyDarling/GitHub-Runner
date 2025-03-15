@@ -40,9 +40,9 @@ def get_files(username: str, reponame: str, put_path: str = "", branch: str = "m
         print(f"{Fore.CYAN}Getting{Fore.RESET} {Fore.YELLOW}'{file_url}'{Fore.RESET}...")
         try:
             with open(local_path, "wb") as file: file.write(get(file_url).content)
-            print(f"{Fore.GREEN}Received: {filename}{Fore.RESET}")
+            print(f"{Fore.GREEN}Received!{Fore.RESET}")
         except OSError as e:
-            print(f"{Fore.RED}Error writing file {filename}: {e}{Fore.RESET}")
+            print(f"{Fore.RED}Error writing file '{filename}': {e}{Fore.RESET}")
 
     for folder_path in folder_names:
         folder_name = path.relpath(folder_path, start=put_path)
