@@ -24,13 +24,4 @@ A simple breakdown of this command:
 **Reminder:** This is a summary of the documentation. Please go to the Wiki in this GitHub page.
 
 ## How to install
-If you'd like to use this tool for yourself, you can do the following steps:  
-
-1. Click on the ***Code*** button to show a menu.  
-![Code Button](docs-assets/code-button.png)    
-2. A menu should come up, click ***Download ZIP***.  
- 
-![Download ZIP](docs-assets/download-zip.png)  
-3. Then, you'll receive a ZIP file. Extract it, and start using the script!  
-
-***Adding more languages to run!***
+If you'd like to use this tool for yourself, install according to the Introduction page in the Wiki.
