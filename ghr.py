@@ -64,12 +64,7 @@ try:
         if lang != "html-css-js": main_file = argv[3]
     except IndexError:
        print(f"{Style.BRIGHT}{Fore.RED}ERROR:{Fore.RESET}{Style.RESET_ALL} not enough arguments")
-       exit() 
-
-    #valid lang check
-    if lang != "python3" or lang != "html-css-js":
-        print(f"{Style.BRIGHT}{Fore.RED}ERROR:{Fore.RESET}{Style.RESET_ALL} no such language OR unsupported language\n  {Fore.GREEN}try:{Fore.RESET} check spelling")
-        exit()
+       exit()
 
     if lang == "html-css-js":
         try:
