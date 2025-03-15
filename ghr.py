@@ -1,7 +1,7 @@
-from requests import get
+from requests import get, RequestException
 from sys import argv, platform
 from colorama import Fore, Style
-from os import mkdir, listdir, chdir, remove, path, rmdir
+from os import mkdir, listdir, chdir, remove, path, makedirs, rmdir
 from urllib.parse import urlparse, unquote
 from runpy import run_path
 
@@ -13,47 +13,39 @@ def rm(Path: str):
         return
     remove(Path)
 
-import os
-import requests
-from urllib.parse import unquote, urlparse
-from colorama import Fore
-
 def get_files(username: str, reponame: str, put_path: str = "", branch: str = "main", URL: str = ""):
     file_urls = []
     folder_names = []
     url = URL or f"https://api.github.com/repos/{username}/{reponame}/contents{put_path}?ref={branch}"
 
     try:
-        response = requests.get(url)
+        response = get(url)
         response.raise_for_status()
         contents = response.json()
-    except requests.RequestException as e:
+    except RequestException as e:
         print(f"{Fore.RED}Error fetching repository contents: {e}{Fore.RESET}")
         return
     
     for item in contents:
-        if item['type'] == 'file':
-            file_urls.append(item['download_url'])
-        else:
-            folder_names.append(item['path'])
+        if item['type'] == 'file' and item['name'] != 'README.md': file_urls.append(item['download_url'])
+        else: folder_names.append(item['path'])
 
-    local_dir = os.path.join(os.path.dirname(__file__), files_dirname, put_path)
-    os.makedirs(local_dir, exist_ok=True)
+    local_dir = path.join(path.dirname(__file__), files_dirname, put_path)
+    makedirs(local_dir, exist_ok=True)
 
     for file_url in file_urls:
         filename = unquote(urlparse(file_url).path.split("/")[-1])
-        local_path = os.path.join(local_dir, filename)
+        local_path = path.join(local_dir, filename)
 
         print(f"{Fore.CYAN}Getting{Fore.RESET} {Fore.YELLOW}'{file_url}'{Fore.RESET}...")
         try:
-            with open(local_path, "wb") as file:
-                file.write(requests.get(file_url).content)
+            with open(local_path, "wb") as file: file.write(get(file_url).content)
             print(f"{Fore.GREEN}Received: {filename}{Fore.RESET}")
         except OSError as e:
             print(f"{Fore.RED}Error writing file {filename}: {e}{Fore.RESET}")
 
     for folder_path in folder_names:
-        folder_name = os.path.relpath(folder_path, start=put_path)
+        folder_name = path.relpath(folder_path, start=put_path)
         print(f"{Fore.MAGENTA}Working on directory:{Fore.RESET} {folder_name}")
 
         get_files(username, reponame, folder_path, branch,
