@@ -11,7 +11,7 @@ from shutil import rmtree
 from keyboard import add_hotkey
 from toml import loads as toml_load
 
-ghr_version = "1.0.5" # Dev Reminder: ALWAYS UPDATE THIS!!!
+ghr_version = "1.0.7" # Dev Reminder: ALWAYS UPDATE THIS!!!
 
 def get_files(username: str, reponame: str, put_path: str = "", branch: str = "main", URL: str = ""):
     file_urls = []
