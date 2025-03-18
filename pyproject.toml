@@ -1,0 +1,25 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ghr"
+authors = [
+	{"name"="PabloMyLove", "email"="pablomylove@proton.me"},
+]
+version = "1.0.4"
+dependencies = ["requests", "colorama"]
+description = "A small tool to run repositories straight from GitHub."
+readme = "README.md"
+requires-python = ">=3.10"
+license = {text = "MIT"}
+
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+]
+
+[project.urls]
+Homepage = "https://github.com/PabloMyDarling/GitHub-Runner"
+Issues = "https://github.com/PabloMyDarling/GitHub-Runner/issues"
+
