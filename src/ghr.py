@@ -9,6 +9,9 @@ from http.server import SimpleHTTPRequestHandler
 from webbrowser import open_new_tab
 from shutil import rmtree
 from keyboard import add_hotkey
+from toml import loads as toml_load
+
+ghr_version = "1.0.5" # Dev Reminder: ALWAYS UPDATE THIS!!!
 
 def get_files(username: str, reponame: str, put_path: str = "", branch: str = "main", URL: str = ""):
     file_urls = []
@@ -53,6 +56,10 @@ ghr_path = path.join(path.expanduser("~"), "Documents", "ghr")
 
 def MAIN():
     global files_dirname, ghr_path, lang
+    print(f"{Fore.BLUE}Checking for updates...{Fore.RESET}")
+    _file = toml_load(get('https://raw.githubusercontent.com/PabloMyDarling/GitHub-Runner/refs/heads/main/pyproject.toml').text)
+    if _file['project']['version'] != ghr_version: print(f"{Fore.YELLOW}{Style.BRIGHT}WARN:{Fore.RESET}{Style.NORMAL} ghr is out-of-date!")
+
     try:
         try:
             lang = argv[1]
@@ -73,7 +80,7 @@ def MAIN():
         if lang == "html-css-js":
             try:
                 argv[3]
-                print(f"{Fore.YELLOW}{Style.BRIGHT}WARN:{Fore.RESET}{Style.BRIGHT} main file not required for html-css-js")
+                print(f"{Fore.YELLOW}{Style.BRIGHT}WARN:{Fore.RESET}{Style.NORMAL} main file not required for html-css-js")
             except IndexError: pass
         response = get(f"https://api.github.com/repos/{repo[0]}/{repo[1]}/contents?ref={repo[2]}")
 

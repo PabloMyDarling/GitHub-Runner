@@ -7,7 +7,7 @@ name = "ghr"
 authors = [
 	{"name"="PabloMyLove", "email"="pablomylove@proton.me"},
 ]
-version = "1.0.4"
+version = "1.0.5"
 dependencies = ["requests", "colorama"]
 description = "A small tool to run repositories straight from GitHub."
 readme = "README.md"
