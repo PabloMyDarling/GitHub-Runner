@@ -1,5 +1,6 @@
 # GitHub-Runner
-This is a tool to run [Python3](https://www.python.org) and HTML-CSS-JS projects directly from GitHub.
+This is a tool to run [Python3](https://www.python.org) and HTML-CSS-JS projects directly from GitHub.  
+This project from now on will not be worked on, nor will the Go version be worked on, as I have realized that this idea's dumb. (04/04/25)
 
 ## How it works
 This is a CLI (Command Line Interface) tool, which means it should be run from your preferred terminal, whether it be kitty, Alacritty, Windows Terminal, etc.  
